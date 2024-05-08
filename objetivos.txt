@@ -1,0 +1,6 @@
+#git init - cria uma pasta e um txt
+#git add . - seleciona os arquivos (colocando em um arquivo de txt)
+#git commit - copia e salva os arquivos em uma pasta criada nova
+
+
+#poder mudar de commit
