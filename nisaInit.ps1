@@ -5,8 +5,9 @@ function nisa {
     )
 
     $currentDirectory = (Get-Location).Path
-    $destinationDirectory = "$currentDirectory/$name"
-
+    $destinationDirectory = "$currentDirectory/nisa"
+    
+    $i = 0
 
     switch ($command) {
 
@@ -19,17 +20,20 @@ function nisa {
         commit {
 
             $arquivo = Get-ChildItem -Path $currentDirectory
-            $addContent = get-content -Path "$currentDirectory/add.txt"
+            [string[]]$addContent = get-content -Path "$currentDirectory/add.txt"
+            Write-Host $addContent
 
-            foreach ($file in $addContent)
-            {
-                if($file -contains $arquivo){
-                    #Copy-Item $arquivo.FullName -Destination "$destinationDirectory" 
-                    Write-Host "Contem"
+
+            for ($i = 0; $i -lt $addContent.Count; $i++) {
+                for ($j = 0; $j -lt $arquivo.Count; $j++) {
+                    if ($addContent[$i] -eq $arquivo[$j].Name) {
+                        if (-not(Test-Path -Path "$destinationDirectory/$name")) {
+                            New-item -Path "$destinationDirectory/$name" -ItemType Directory
+                        }
+                        Copy-Item $arquivo[$j] -Destination "$destinationDirectory/$name" 
+                    }
                 }
             }
-
-            Write-Host $arquivo[3]
         }
 
         Default {
