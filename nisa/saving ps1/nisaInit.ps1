@@ -15,7 +15,6 @@ function nisa {
             New-item -Path "$destinationDirectory" -ItemType Directory
             New-item -Path "$destinationDirectory/add.txt"
             Write-Host "Directory created at destination: $currentDirectory"
-            
         }
 
         add {  #adding files names in "add.txt" 
@@ -43,6 +42,8 @@ function nisa {
         commit { #adding the files at nisa directory
 
             [string[]]$addContent = get-content -Path "$destinationDirectory/add.txt"
+            Write-Host $addContent
+    
     
             for ($i = 0; $i -lt $addContent.Count; $i++) {
                 for ($j = 0; $j -lt $arquivo.Count; $j++) {
@@ -58,7 +59,6 @@ function nisa {
         }
     
         Default {
-            
             Write-Output "Invalid command."
         }
     }   
